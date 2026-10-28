@@ -1,0 +1,125 @@
+{
+ "project": "agent-03-multi-agent",
+ "url": "https://agent-03-multi-agent.braylo777.workers.dev",
+ "endpoint": "/api/run",
+ "field": "task",
+ "kind": "crew",
+ "cases": [
+  {
+   "id": "r01",
+   "category": "research",
+   "input": "Should a small plumbing business use an AI phone agent? Give pros, cons and a recommendation.",
+   "expect_any": [
+    [
+     "recommend"
+    ]
+   ]
+  },
+  {
+   "id": "r02",
+   "category": "compare",
+   "input": "Compare RAG and fine-tuning for a company knowledge assistant.",
+   "expect_any": [
+    [
+     "RAG",
+     "retrieval"
+    ],
+    [
+     "fine-tun"
+    ]
+   ]
+  },
+  {
+   "id": "r03",
+   "category": "explain",
+   "input": "Explain vector databases to a non-technical founder.",
+   "expect_any": [
+    "vector"
+   ]
+  },
+  {
+   "id": "r04",
+   "category": "compare",
+   "input": "Compare PostgreSQL and MongoDB for a startup's first product.",
+   "expect_any": [
+    "Postgres",
+    "Mongo"
+   ]
+  },
+  {
+   "id": "r05",
+   "category": "research",
+   "input": "What are the main risks of deploying LLM agents in customer support?",
+   "expect_any": [
+    [
+     "hallucinat",
+     "inaccura",
+     "error",
+     "wrong"
+    ]
+   ]
+  },
+  {
+   "id": "r06",
+   "category": "plan",
+   "input": "Create a 3-step plan for a bakery to start selling online.",
+   "expect_any": [
+    "online"
+   ]
+  },
+  {
+   "id": "r07",
+   "category": "explain",
+   "input": "Explain how solar panels generate electricity.",
+   "expect_any": [
+    "electric"
+   ]
+  },
+  {
+   "id": "r08",
+   "category": "compare",
+   "input": "Compare electric cars and hybrid cars for a delivery fleet.",
+   "expect_any": [
+    "electric",
+    "hybrid"
+   ]
+  },
+  {
+   "id": "r09",
+   "category": "research",
+   "input": "What should a small business consider before adopting a CRM?",
+   "expect_any": [
+    "CRM"
+   ]
+  },
+  {
+   "id": "r10",
+   "category": "explain",
+   "input": "Explain the difference between machine learning and deep learning.",
+   "expect_any": [
+    "deep learning",
+    "machine learning"
+   ]
+  },
+  {
+   "id": "r11",
+   "category": "plan",
+   "input": "Outline how to evaluate an AI chatbot before launch.",
+   "expect_any": [
+    [
+     "test",
+     "evaluat"
+    ]
+   ]
+  },
+  {
+   "id": "r12",
+   "category": "compare",
+   "input": "Compare serverless functions and containers for a small web API.",
+   "expect_any": [
+    "serverless",
+    "container"
+   ]
+  }
+ ]
+}
