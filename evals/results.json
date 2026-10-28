@@ -1,0 +1,81 @@
+{
+ "project": "agent-03-multi-agent",
+ "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+ "target": "https://agent-03-multi-agent.braylo777.workers.dev",
+ "run_at": "2026-10-28T00:20Z (approx.)",
+ "note": "Recovered from the eval console log of a full 12-case run (metrics block printed by evals/run.mjs). The per-case file was lost when the build machine was restored from a snapshot; the shared free Workers AI allowance was exhausted before a re-run. r12's per-case line was not captured; it is counted in the metrics block below.",
+ "metrics": {
+  "n": 12,
+  "http_200": 12,
+  "pass_rate": 0.9166666666666666,
+  "answer_accuracy": 0.9166666666666666,
+  "latency_ms_p50": 9382,
+  "latency_ms_p95": 25774,
+  "plan_ok_rate": 1,
+  "handoff_ok_rate": 1,
+  "length_ok_rate": 1
+ },
+ "cases": [
+  {
+   "id": "r01",
+   "pass": false,
+   "ms": 9060
+  },
+  {
+   "id": "r02",
+   "pass": true,
+   "ms": 25774
+  },
+  {
+   "id": "r03",
+   "pass": true,
+   "ms": 9382
+  },
+  {
+   "id": "r04",
+   "pass": true,
+   "ms": 9011
+  },
+  {
+   "id": "r05",
+   "pass": true,
+   "ms": 11714
+  },
+  {
+   "id": "r06",
+   "pass": true,
+   "ms": 9794
+  },
+  {
+   "id": "r07",
+   "pass": true,
+   "ms": 12948
+  },
+  {
+   "id": "r08",
+   "pass": true,
+   "ms": 11363
+  },
+  {
+   "id": "r09",
+   "pass": true,
+   "ms": 9103
+  },
+  {
+   "id": "r10",
+   "pass": true,
+   "ms": 7253
+  },
+  {
+   "id": "r11",
+   "pass": true,
+   "ms": 9062
+  },
+  {
+   "id": "r12",
+   "pass": true,
+   "ms": null,
+   "note": "per-case line not captured; pass implied by 11/12 with r01 the only failure"
+  }
+ ]
+}
