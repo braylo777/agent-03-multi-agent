@@ -24,14 +24,13 @@ flowchart LR
 3. **Writer** sees only the task and the research notes and writes the final answer.
 4. Each handoff (`user → planner → researcher#n → writer → user`) is logged with elapsed milliseconds, so per-stage latency shows in the demo.
 
-- `src/crew.js`: agent instructions and orchestrator
-- `src/core.js`: Workers AI, JSON parsing, rate-limit helpers
-- `src/index.js`, `src/page.html`: routes and demo UI
+- `src/agent03/crew.py`, `worker/src/crew.rs`: agent instructions and orchestrator (Python reference and Rust Worker)
+- `worker/src/worker_entry.rs`, `worker/src/page.rs`: routes, rate limit, demo UI
 
 Guardrails: 5 requests/min per IP (Workers Rate Limiting), 500-character input cap, errors returned as JSON.
 
 ## Evaluation (live model)
-[`evals/run.mjs`](evals/run.mjs) sends every case in [`evals/cases.json`](evals/cases.json) to the **deployed** demo (Llama 3.3 70B fp8 on Workers AI) and scores it. A case passes when the response is HTTP 200, the answer contains the expected key fact(s) (case-insensitive), the planner returned 2-3 sub-questions, the handoff chain is complete, and the answer is at most 230 words. Latency is end-to-end HTTP from the eval machine. The suite is deliberately small to stay inside the free daily Workers AI allowance, so treat the numbers as indicative.
+[`evals/run.py`](evals/run.py) sends every case in [`evals/cases.json`](evals/cases.json) to the **deployed** demo (Llama 3.3 70B fp8 on Workers AI) and scores it. A case passes when the response is HTTP 200, the answer contains the expected key fact(s) (case-insensitive), the planner returned 2-3 sub-questions, the handoff chain is complete, and the answer is at most 230 words. Latency is end-to-end HTTP from the eval machine. The suite is deliberately small to stay inside the free daily Workers AI allowance, so treat the numbers as indicative.
 
 **12 cases** ([`evals/results.json`](evals/results.json), 2026-10-28T00:20Z (approx.)):
 
@@ -47,16 +46,18 @@ Guardrails: 5 requests/min per IP (Workers Rate Limiting), 500-character input c
 Only failure: `r01` ("Should a small plumbing business use an AI phone agent?…") gave pros and cons but never used the word "recommend", so the key-term check failed. Recovered from the eval console log of a full 12-case run (metrics block printed by evals/run.mjs). The per-case file was lost when the build machine was restored from a snapshot; the shared free Workers AI allowance was exhausted before a re-run. r12's per-case line was not captured; it is counted in the metrics block below.
 
 ## Tests
-9 offline unit tests (`node --test`), 9 passing. The LLM and HTTP APIs are mocked, so they run without a Cloudflare account.
+Python: 9 tests passing. Rust: 5 test functions passing (same assertions). Plan, handoffs and answers match the old JavaScript on 8 planner-output scenarios. The LLM and HTTP APIs are mocked, so they run without a Cloudflare account.
 
 ## Run it
 ```bash
-npm install
-npm test                    # unit tests, Node 20+
-npx wrangler dev            # local dev; Workers AI uses your Cloudflare login
-npx wrangler deploy         # free tier, no paid API keys
-node evals/run.mjs          # live eval against the demo (paced for the rate limit)
+python3 -m pytest                       # Python tests
+cd worker && cargo test                 # Rust tests
+cd worker && worker-build --release     # build the Worker (wasm)
+wrangler dev                            # local dev; Workers AI uses your Cloudflare login
+python3 evals/run.py                    # live eval against the demo (paced for the rate limit)
 ```
+
+The previous JavaScript version is on the `legacy-js` branch and the `pre-pycrust` tag.
 
 ## License
 MIT
